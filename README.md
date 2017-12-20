@@ -22,7 +22,8 @@ api.setup( username = 'apiuser', password = 'apipass')
 2. The slick new way which saves time in cases where a script has a step or process URI provided to it:
 ```
 api = glsapituil3.glsapiutil3()
-api.setup( username = 'apiuser', password = 'apipass', sourceURI = 'https://demo-5-lite.claritylims.com/api/v2/steps/24-1234' )
+api.setup( username = 'apiuser', password = 'apipass', 
+          sourceURI = 'https://demo-5-lite.claritylims.com/api/v2/steps/24-1234' )
 ```
 
 The Python console will provide helpful logging messages once the object gets initialised.
