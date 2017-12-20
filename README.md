@@ -13,7 +13,7 @@ The new API object can be initialised in two ways:
 
 1. The old (glsapiutil.py) way:
 ```
-api = glsapituil3.glsapiutil3()
+api = glsapiutil3.glsapiutil3()
 api.setHostname('https://demo-5-lite.claritylims.com')
 api.setVersion('v2')
 api.setup( username = 'apiuser', password = 'apipass')
@@ -21,7 +21,7 @@ api.setup( username = 'apiuser', password = 'apipass')
 
 2. The slick new way which saves time in cases where a script has a step or process URI provided to it:
 ```
-api = glsapituil3.glsapiutil3()
+api = glsapiutil3.glsapiutil3()
 api.setup( username = 'apiuser', password = 'apipass', 
           sourceURI = 'https://demo-5-lite.claritylims.com/api/v2/steps/24-1234' )
 ```
