@@ -135,17 +135,17 @@ class glsapiutil3:
     # POST wrapper function
     def POST( self, xmlObject, uri ):
 
-        return self._createStandardHTTPRequest( 'POST', uri, xmlObject )
-    
+        return self._createStandardHTTPRequest( uri, 'POST', xmlObject )
+
     # PUT wrapper function
     def PUT( self, xmlObject, uri ):
 
-        return self._createStandardHTTPRequest( 'PUT', uri, xmlObject )
+        return self._createStandardHTTPRequest( uri, 'PUT', xmlObject )
 
     # DELETE wrapper function
     def DELETE( self, xmlObject, uri ):
 
-        return self._createStandardHTTPRequest( 'DELETE', uri, xmlObject )
+        return self._createStandardHTTPRequest( uri, 'DELETE', xmlObject )
 
 
 
