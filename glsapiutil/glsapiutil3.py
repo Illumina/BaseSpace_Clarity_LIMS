@@ -185,6 +185,48 @@ class glsapiutil3:
         except:
             logging.error( message )  
     
+    def getArtifacts( self, LUIDs ):
+
+        """ 
+        This function will be passed a list of artifacts LUIDS, and return those artifacts represented as XML
+        The artifacts will be collected in a single batch transaction, and the function will return the XML
+        for the entire transactional list
+        """
+
+        response = self.__getBatchObjects( LUIDs, "artifact" )
+        if response is None:
+            return ""
+        else:
+            return response
+
+    def getSamples( self, LUIDs ):
+
+        """ 
+        This function will be passed a list of sample LUIDS, and return those samples represented as XML
+        The samples will be collected in a single batch transaction, and the function will return the XML
+        for the entire transactional list
+        """
+
+        response = self.__getBatchObjects( LUIDs, "sample" )
+        if response is None:
+            return ""
+        else:
+            return response
+
+    @staticmethod
+    def getUDF( DOM, udfname ):
+
+        response = ""
+
+        elements = DOM.getElementsByTagName( "udf:field" )
+        for udf in elements:
+            temp = udf.getAttribute( "name" )
+            if temp == udfname:
+                response = udf.firstChild.data
+                break
+
+        return response
+
 
     ## internal functions
     
@@ -231,3 +273,43 @@ class glsapiutil3:
             responseText = '%s %s' % ( str(sys.exc_type), str(sys.exc_value) )
 
         return responseText
+
+
+    def __getBatchObjects( self, LUIDs, objectType ):
+
+        if objectType == "artifact":
+            batchNoun = "artifacts"
+            nodeNoun = "art:artifact"
+        elif objectType == "sample":
+            batchNoun = "samples"
+            nodeNoun = "smp:sample"
+        elif objectType == "container":
+            batchNoun = "containers"
+            nodeNoun = "con:container"
+        elif objectType == "file":
+            batchNoun = "files"
+            nodeNoun = "file:file"
+        else:
+            return None
+
+        lXML = []
+        lXML.append( '<ri:links xmlns:ri="http://genologics.com/ri">' )
+        for limsid in set(LUIDs):
+            lXML.append( '<link uri="%s%s/%s"/>' % ( self.getBaseURI(), batchNoun, limsid ) )
+        lXML.append( '</ri:links>' )
+        lXML = ''.join( lXML )
+
+        mXML = self.POST( lXML, "%s%s/batch/retrieve" % ( self.getBaseURI(), batchNoun ) )
+
+        ## did we get back anything useful?
+        try:
+            mDOM = parseString( mXML )
+            nodes = mDOM.getElementsByTagName( nodeNoun )
+            if len(nodes) > 0:
+                response = mXML
+            else:
+                response = ""
+        except:
+            response = ""
+
+        return response
