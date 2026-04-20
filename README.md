@@ -6,6 +6,7 @@ Currently, you will find the mature **glsapiutil.py** library which should be us
 
 You will also find **glsapiutil3.py**, which is currently a bleeding-edge alpha version of a library that works with both Python v2 and v3. It is currently lacking some error-checking code and extra functionality present in the mature library, so please use it at your own risk!
 
+BaseSpace Clarity LIMS  is licensed under [PolyForm Strict License 1.0.0](https://github.com/Illumina/BaseSpace_Clarity_LIMS/blob/master/LICENSE)
 
 ## Initialising and using the API object (glsapiutil3)
 
