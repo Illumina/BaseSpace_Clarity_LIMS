@@ -242,7 +242,7 @@ class glsapiutil3:
         req = py_sys_urllib.Request( uri )
 
         if xmlObject is not None:
-            req.add_data( xmlObject )
+            req.data = xmlObject.encode('utf-8')
         
         req.get_method = lambda: http_method_type
         req.add_header( 'Accept', 'application/xml' )
@@ -270,7 +270,8 @@ class glsapiutil3:
 
 
         except:
-            responseText = '%s %s' % ( str(sys.exc_type), str(sys.exc_value) )
+            exctype, excvalue = sys.exc_info()[:2]
+            responseText = '%s %s' % (str(exctype), str(excvalue))
 
         return responseText
 
